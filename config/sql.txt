@@ -1,0 +1,25 @@
+-- 데이터베이스 생성
+CREATE DATABASE MEMBER;
+
+-- 데이터베이스 사용
+USE MEMBER;
+
+-- 테이블 생성
+CREATE TABLE member (
+	idx INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id VARCHAR(100) DEFAULT "",
+    password VARCHAR(150) DEFAULT "",
+    email VARCHAR(100) DEFAULT "",
+    name VARCHAR(50) DEFAULT "",
+    zipcode CHAR(5) DEFAULT "",
+    addr1 VARCHAR(255) DEFAULT "",
+    addr2 VARCHAR(255) DEFAULT "",
+    photo VARCHAR(100) DEFAULT "",
+    create_at DATETIME DEFAULT NOW(),
+    ip VARCHAR(20) DEFAULT "",
+    PRIMARY KEY (idx),
+    UNIQUE INDEX id (id) USING BTREE
+);
+
+-- 테이블 정보
+DESC member;
