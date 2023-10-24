@@ -1,6 +1,8 @@
 <?php
 session_start();
+
 $session_id = ( isset($_SESSION["session_id"]) && $_SESSION["session_id"] != "") ? $_SESSION["session_id"] : "";
+$session_level = ( isset($_SESSION["session_level"]) && $_SESSION["session_level"] != "") ? $_SESSION["session_level"] : "";
 
 $g_title = "메인 화면";
 $js_arr = ["./js/index.js"];

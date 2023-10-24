@@ -1,59 +1,18 @@
 "use strict";
 
 // 버튼 핸들링을 이해 가져 옴
-const btn_id_chk = document.querySelector("#btn_id_chk");
 const btn_submit = document.querySelector("#btn_submit");
 const btn_email_chk = document.querySelector("#btn_email_chk");
 const btn_zipcode = document.querySelector("#btn_zipcode");
 
-// 아이디 중복 버튼 클릭시 이벤트 발생
-btn_id_chk.addEventListener("click", () => {
-    const f_id = document.querySelector("#f_id");
-    if (f_id.value == "") {
-        alert("아이디를 입력해주세요.");
-        f_id.focus();
-        return;
-    }
-
-    /**
-     * 아이디가 들어있기 때문에
-     * AJAX 통신
-     * mode : 하나의 용도로만 사용할 것이 아니기 떄문에
-     */
-    const f1 = new FormData();
-    f1.append("id", f_id.value);
-    f1.append("mode", "id_chk");
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "./process/register_process.php", true);
-    xhr.send(f1);
-
-    xhr.onload = () => {
-        if (xhr.status == 200) {
-            const data = JSON.parse(xhr.response);
-            
-            if (data.result == "success") {
-                alert("사용이 가능한 아이디입니다.");
-                document.register_form.id_chk.value = "1";
-
-            } else if (data.result == "fail") {
-                alert("이미 사용중인 아이디입니다.");
-                document.register_form.id_chk.value = "0";
-                f_id.value = "";
-                f_id.focus();
-            } else if (data.result == "empty_id") {
-                alert("아이디가 비어있습니다.");
-                f_id.focus();
-            }
-        } else {
-            alert("통신 실패");
-        }
-    }
-});
-
 // 이메일 중복 버튼 클릭시 이벤트 발생
 btn_email_chk.addEventListener("click", () => {
     const f_email = document.querySelector("#f_email");
+    if (document.register_form.old_email.value == f_email.value) {
+        alert("기존 이메일 입니다.");
+        return;
+    }
+
     if (f_email.value == "") {
         alert("이메일을 입력해주시기 바랍니다.");
         f_email.focus();
@@ -156,27 +115,9 @@ f_photo.addEventListener("change", (event) => {
     }
 });
 
-// 가입 버튼 클릭시 이벤트 발생
+// 수정 버튼 클릭시 이벤트 발생
 btn_submit.addEventListener("click", () => {
     const f = document.register_form;
-
-    /**
-     * 아이디 체크
-     * 1. 아이디 입력 여부 체크
-     * 2. 아이디 중복 확인 여부 체크
-     */
-    if (f.f_id.value == "") {
-        alert("아이디를 입력해주세요.");
-        f.f_id.focus();
-        
-        return;
-    }
-
-    if (f.id_chk.value == 0) {
-        alert("아이디 중복확인을 해주시기바랍니다.");
-        f.btn_id_chk.focus();
-        return;
-    }
 
     /**
      * 비밀번호 체크
@@ -184,15 +125,9 @@ btn_submit.addEventListener("click", () => {
      * 2. 비밀번호 확인 입력 여부 체크
      * 3. 두 비밀번호 같은지 체크
      */
-    if (f.f_password.value == 0) {
-        alert("비밀번호를 입력해주세요.");
-        f.f_password.focus();
-        return;
-    }
-
-    if (f.f_password2.value == 0) {
+    if (f.f_password.value != "" && f.f_password2.value == "") {
         alert("비밀번호 확인을 입력해주세요.");
-        f.f_password.focus();
+        f_password2.focus();
         return;
     }
 
@@ -215,10 +150,12 @@ btn_submit.addEventListener("click", () => {
         return;
     }
 
-    if (f.email_chk.value == 0) {
-        alert("이메일 중복확인을 해주시기바랍니다.");
-        f.btn_email_chk.focus();
-        return;
+    if (f.f_email.value != f.old_email.value) {
+        if (f.email_chk.value == 0) {
+            alert("이메일 중복확인을 해주시기바랍니다.");
+            f.btn_email_chk.focus();
+            return;
+        }
     }
 
     /**

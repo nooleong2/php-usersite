@@ -18,10 +18,14 @@ if ($password == "") {
 
 $login = new Login($conn);
 if ($login -> login($id, $password)) {
-    $arr = ["result" => "login_success"];
+
+    $memArr = $login -> getInfo($id);
 
     session_start();
     $_SESSION["session_id"] = $id;
+    $_SESSION["session_level"] = $memArr["level"];
+
+    $arr = ["result" => "login_success"];
 
 } else {
     $arr = ["result" => "login_fail"];

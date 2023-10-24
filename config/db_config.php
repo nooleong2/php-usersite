@@ -33,3 +33,9 @@ try {
     echo $e -> getMssage();
     exit();
 }
+
+// $_SERVER 의 DOCUMENT_ROOT 이용
+define("DOCUMENT_ROOT", $_SERVER["DOCUMENT_ROOT"] ."/_php/member");
+define("ADMIN_DIR", DOCUMENT_ROOT ."/admin");
+define("DATA_DIR", DOCUMENT_ROOT ."/data");
+define("PROFILE_DIR", DATA_DIR ."/profile");

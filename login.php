@@ -7,7 +7,7 @@ include "./common_php/inc_header.php";
 ?>
 
 <main class="w-75 mx-auto border rounded-3 p-5 d-flex gap-5">
-    <form action="" class="w-25 mt-5 m-auto" method="POST" autocomplete="off">
+    <form action="" class="w-50 mt-5 m-auto" method="POST" autocomplete="off">
         <img src="./images/logo.svg" width="72" alt="">
         <h1 class="h3 mb-3">로그인</h1>
         
