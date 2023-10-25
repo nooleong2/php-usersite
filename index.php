@@ -1,8 +1,9 @@
 <?php
-session_start();
-
-$session_id = ( isset($_SESSION["session_id"]) && $_SESSION["session_id"] != "") ? $_SESSION["session_id"] : "";
-$session_level = ( isset($_SESSION["session_level"]) && $_SESSION["session_level"] != "") ? $_SESSION["session_level"] : "";
+include "./common_php/inc_session.php";
+include "./config/db_config.php";
+include "./class/board_manage.php"; # 게시판 목록
+$boardm = new BoardManage($conn);
+$boardArr = $boardm -> list();
 
 $g_title = "메인 화면";
 $js_arr = ["./js/index.js"];

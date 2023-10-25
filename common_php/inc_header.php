@@ -41,7 +41,18 @@
                     <?php } else { ?>
                             <li class="nav-item"><a href="./mypage.php" class="nav-link <?= ($menu_code == "mypage") ? "active" : "" ?>">My Page</a></li>
                     <?php } ?>
-                    <li class="nav-item"><a href="./board.php" class="nav-link <?= ($menu_code == "board") ? "active" : "" ?>">게시판</a></li>
+                    <?php
+                        foreach ($boardArr as $row) {
+                            echo '<li class="nav-item"><a href="./board.php?bcode='.$row["bcode"].'" class="nav-link';
+                            if ( isset($_GET["bcode"]) && $_GET["bcode"] == $row["bcode"]) {
+                                echo " active";
+                            } else {
+                                echo "";
+                            }
+                            echo '">' .$row["name"]. '</a></li>';
+                        }
+                    ?>
+                    
                     <li class="nav-item"><a href="./process/logout_process.php" class="nav-link">로그아웃</a></li>
                 <?php 
                 } else {
