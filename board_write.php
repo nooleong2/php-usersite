@@ -30,6 +30,10 @@ $board = new Board($conn);
         <input type="text" name="subject" id="id_subject" class="form-control" placeholder="제목을 입력하세요." autocomplete="off">
     </div>
 
+    <div class="mb-3">
+        <input type="file" name="attach" id="id_attach" multiple class="form-control">
+    </div>
+
     <div id="summernote"></div>
 
     <div class="mt-3 d-flex gap-1 justify-content-end">
